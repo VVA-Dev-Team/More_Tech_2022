@@ -1,0 +1,28 @@
+.test {
+    min-width: 300px;
+    display: flex;
+    align-items: center;
+}
+
+.test-form {
+    width: 100%;
+}
+
+.test-field {
+    display: flex;
+}
+
+.answer {
+    width: 100%;
+    background-color: #F9F9ED;
+    color: black;
+    padding: 0.2rem;
+    padding-left: .5rem;
+    cursor: pointer;
+    border-radius: .25rem;
+}
+
+.chosen {
+    background-color: #00A6FB;
+    color: white !important;
+}

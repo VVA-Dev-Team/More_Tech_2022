@@ -1,0 +1,31 @@
+.user {
+    width: 45%;
+    background-color: #051923;
+    border-radius: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: .5rem;
+}
+
+.user>h3 {
+    width: 100%;
+    background-color: #00A6FB;
+    border-radius: 0.25rem .25rem 0 0;
+    color: #051923;
+    margin-bottom: .5rem;
+}
+
+.user>p {
+    margin-left: 0.5rem;
+}
+
+.user-btns {
+    width: 100%;
+    margin-top: 0.2rem;
+    display: flex;
+    justify-content: space-around;
+}
+
+.user-btns > button {
+    width: 48%;
+}

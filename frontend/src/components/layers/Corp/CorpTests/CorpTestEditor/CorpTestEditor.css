@@ -1,0 +1,36 @@
+.CorpTestEditor {
+    
+}
+
+.modal-form {
+    margin-top: .5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.name {
+    width: 90%;
+}
+
+.desc {
+    margin-top: 0.5rem;
+    resize: none;
+    width: 90%;
+    height: 4rem;
+}
+
+.modal-btn {
+    margin-top: .5rem;
+
+}
+
+.modal-form-que {
+    gap: .5rem;
+}
+
+.form-que-btns {
+    display: flex;
+    gap: .5rem;
+    
+}

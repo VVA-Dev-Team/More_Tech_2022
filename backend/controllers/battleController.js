@@ -8,9 +8,12 @@ class BattleController {
             let {reward, attacking, defending} = req.body
             if (reward && attacking && defending) {
                 let question = []
-                TestQuestion.findAll({ order: Sequelize.literal('rand()'), limit: 5 }).then((encounters) => {
-                    question.push(encounters)
+                await TestQuestion.findAll({ order: Sequelize.literal('rand()'), limit: 5 }).then((encounters) => {
+                    for (let i = 0; i < encounters.length; i++) {
+                        question.push(encounters[i].dataValues.id)
+                    }
                 });
+                console.log(question)
                 const questionIds = JSON.stringify(question)
                 const item = await Battle.create({reward, attacking, defending, questionIds})
                 return res.json(item)
@@ -27,7 +30,7 @@ class BattleController {
             let {userId} = req.query
             if (userId) {
                 const attackingBattles = await Battle.findAll({where: {attacking: userId}})
-                const defendingBattles = await Battle.findAll({where: {attacking: userId}})
+                const defendingBattles = await Battle.findAll({where: {defending: userId}})
                 const resBattles = {
                     "attackingBattles": attackingBattles,
                     "defendingBattles": defendingBattles

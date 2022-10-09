@@ -2,6 +2,7 @@ const request = require('request');
 const {response} = require("express");
 const ApiError = require("../error/ApiError");
 const tokenController = require("./tokenController")
+const {Cell} = require("../models/models");
 
 class SdkController {
 
@@ -28,12 +29,56 @@ class SdkController {
     }
 
     async transferNFT (req, res, next) {
-        const {fromPrivateKey, toPublicKey, tokenId} = req.body
-        if (fromPrivateKey, toPublicKey, tokenId) {
-            const data = await tokenController.transferNFT(fromPrivateKey, toPublicKey, tokenId)
-            return res.json(data)
-        } else {
-            return next(ApiError.internal({message: "Не заданы параметры"}))
+        try {
+            const {fromPrivateKey, toPublicKey, tokenId, toUserId} = req.body
+            if (fromPrivateKey, toPublicKey, tokenId) {
+                const data = JSON.parse(await tokenController.transferNFT(fromPrivateKey, toPublicKey, tokenId))
+                console.log(data)
+                if (transaction_hash) {
+
+                    let i = 0
+                    while (true) {
+                        console.log("while is worked")
+                        const options = {
+                            'method': 'GET',
+                            'url': `https://hackathon.lsp.team/hk/v1/transfers/status/${transaction_hash}`,
+                            'headers': {
+                                'Accept': 'application/json'
+                            }
+                        };
+
+                        const {status} = JSON.parse(await new Promise(function (resolve, reject) {
+                            request(options, (err, resp, body) => {
+                                if (err) {
+                                    reject(err);
+                                } else {
+                                    resolve(body);
+                                }
+                            });
+                        }))
+
+                        console.log(status)
+
+                        if (status === "Success") {
+                            break
+                        }
+                        i += 1
+                        if (i > 20) {
+                            return next(ApiError.badRequest({message: "Ошибка транзакции"}))
+                        }
+                        await new Promise(r => setTimeout(r, 5000));
+                    }
+                    const data = await Cell.update({userId: toUserId}, {where: {nftToken: tokenId}})
+                    return res.json(data)
+                } else {
+                    return next(ApiError.badRequest({message: "Ошибка получения хеша"}))
+                }
+
+            } else {
+                return next(ApiError.internal({message: "Не заданы параметры"}))
+            }
+        } catch (e) {
+            return next(ApiError.internal({message: "Непредвиденная ошибка сервера"}))
         }
     }
 

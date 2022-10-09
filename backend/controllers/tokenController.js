@@ -194,87 +194,91 @@ class TokenController {
     }
 
     async generateNFT (toPublicKey, uri, nftCount, userId) {
-        uri = uuid.v4() + uri
-        const options = {
-            'method': 'POST',
-            'url': 'https://hackathon.lsp.team/hk/v1/nft/generate',
-            'headers': {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                "toPublicKey": toPublicKey,
-                "uri": uri,
-                "nftCount": nftCount
-            })
-
-        };
-
-        const {transaction_hash} = JSON.parse(await new Promise(function(resolve, reject) {
-            request(options, (err, resp, body) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(body);
-                }
-            });
-        }))
-
-        console.log(transaction_hash)
-
-        if (transaction_hash) {
-
-
-            while (true) {
-                console.log("while is worked")
-                const options = {
-                    'method': 'GET',
-                    'url': `https://hackathon.lsp.team/hk/v1/transfers/status/${transaction_hash}`,
-                    'headers': {
-                        'Accept': 'application/json'
-                    }
-                };
-
-                const {status} = JSON.parse(await new Promise(function (resolve, reject) {
-                    request(options, (err, resp, body) => {
-                        if (err) {
-                            reject(err);
-                        } else {
-                            resolve(body);
-                        }
-                    });
-                }))
-
-                console.log(status)
-
-                if (status === "Success") {
-                    break
-                }
-                await new Promise(r => setTimeout(r, 5000));
-            }
-
-            const {balance} = JSON.parse(await this.walletBalanceNFT(toPublicKey))
-
-            let tokens
-            for (let i = 0; i < balance.length; i++) {
-                if (balance[i].uri === uri) {
-                    tokens = balance[i].tokens
-                    break
-                }
-            }
-            console.log(tokens)
-
-            for (let i = 0; i < tokens.length; i++) {
-                const newCell = await Cell.create({
-                    userId,
-                    nftToken: tokens[i],
-                    buildingId: Math.floor(Math.random() * 5)
+        try {
+            uri = uuid.v4() + uri
+            const options = {
+                'method': 'POST',
+                'url': 'https://hackathon.lsp.team/hk/v1/nft/generate',
+                'headers': {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    "toPublicKey": toPublicKey,
+                    "uri": uri,
+                    "nftCount": nftCount
                 })
-                console.log(newCell)
+
+            };
+
+            const {transaction_hash} = JSON.parse(await new Promise(function (resolve, reject) {
+                request(options, (err, resp, body) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(body);
+                    }
+                });
+            }))
+
+            console.log(transaction_hash)
+
+            if (transaction_hash) {
+
+
+                while (true) {
+                    console.log("while is worked")
+                    const options = {
+                        'method': 'GET',
+                        'url': `https://hackathon.lsp.team/hk/v1/transfers/status/${transaction_hash}`,
+                        'headers': {
+                            'Accept': 'application/json'
+                        }
+                    };
+
+                    const {status} = JSON.parse(await new Promise(function (resolve, reject) {
+                        request(options, (err, resp, body) => {
+                            if (err) {
+                                reject(err);
+                            } else {
+                                resolve(body);
+                            }
+                        });
+                    }))
+
+                    console.log(status)
+
+                    if (status === "Success") {
+                        break
+                    }
+                    await new Promise(r => setTimeout(r, 5000));
+                }
+
+                const {balance} = JSON.parse(await this.walletBalanceNFT(toPublicKey))
+
+                let tokens
+                for (let i = 0; i < balance.length; i++) {
+                    if (balance[i].uri === uri) {
+                        tokens = balance[i].tokens
+                        break
+                    }
+                }
+                console.log(tokens)
+
+                for (let i = 0; i < tokens.length; i++) {
+                    const newCell = await Cell.create({
+                        userId,
+                        nftToken: tokens[i],
+                        buildingId: Math.floor(Math.random() * 5)
+                    })
+                    console.log(newCell)
+                }
+                return true
             }
-            return true
+            return false
+        } catch (e) {
+            return  false
         }
-        return false
     }
 
 }

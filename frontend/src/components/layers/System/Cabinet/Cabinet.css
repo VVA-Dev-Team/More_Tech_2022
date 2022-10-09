@@ -1,0 +1,19 @@
+.Cabinet {
+    
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.btn-line {
+    display: flex;
+    gap: 1rem;
+}
+
+.history {
+    width: 20rem;
+}

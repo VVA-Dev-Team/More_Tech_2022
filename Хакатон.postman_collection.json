@@ -189,8 +189,152 @@
 				{
 					"name": "transferCoins",
 					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"fromPrivateKey\": \"\",\r\n    \"toPublicKey\": \"\",\r\n    \"amount\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/tokens/transfer-coins",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"tokens",
+								"transfer-coins"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "transferNFT",
+					"request": {
 						"method": "GET",
 						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "getBalanceCoins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/tokens/coins-balance?publicKey=0x187fCde164bec1eC37c4875a09c2648beA239Ffb",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"tokens",
+								"coins-balance"
+							],
+							"query": [
+								{
+									"key": "publicKey",
+									"value": "0x187fCde164bec1eC37c4875a09c2648beA239Ffb"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getBalanceNFT",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/tokens/nft-balance?publicKey=0x187fCde164bec1eC37c4875a09c2648beA239Ffb",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"tokens",
+								"nft-balance"
+							],
+							"query": [
+								{
+									"key": "publicKey",
+									"value": "0x187fCde164bec1eC37c4875a09c2648beA239Ffb"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "NFTInfo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tokenId\": 1683\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/tokens/nft-info",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"tokens",
+								"nft-info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "histiry",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"publicKey\": \"0x05BFefCad07471F76939D03E410365c32A431D47\",\r\n    \"page\": 1,\r\n    \"offset\": 100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/tokens/history",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"tokens",
+								"history"
+							]
+						}
 					},
 					"response": []
 				}
@@ -474,7 +618,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:5000/api/battle/battle",
+							"raw": "http://localhost:5000/api/battles/battle",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -482,7 +626,7 @@
 							"port": "5000",
 							"path": [
 								"api",
-								"battle",
+								"battles",
 								"battle"
 							]
 						}

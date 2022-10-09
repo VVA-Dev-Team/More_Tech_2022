@@ -1,0 +1,24 @@
+.items {
+    width: 600px;
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.item {
+    width: 130px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.item:hover {
+    border: 1px solid white;
+}
+
+.item > img {
+    width: 100%;
+}

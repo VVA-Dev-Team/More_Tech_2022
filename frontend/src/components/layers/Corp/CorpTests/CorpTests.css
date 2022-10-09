@@ -1,0 +1,40 @@
+.task {
+    width: 45%;
+    background-color: #051923;
+    border-radius: 0.25rem;
+    display: flex;
+    flex-direction: column;
+    padding-bottom: .5rem;
+}
+
+.task>h3 {
+    width: 100%;
+    background-color: #00A6FB;
+    border-radius: 0.25rem .25rem 0 0;
+    color: #051923;
+    margin-bottom: .5rem;
+}
+
+.task>p {
+    margin-left: 0.5rem;
+}
+
+.task-btns {
+    width: 100%;
+    margin-top: 0.2rem;
+    display: flex;
+    justify-content: space-around;
+}
+
+.task-btns > button {
+    width: 48%;
+}
+
+.add-btn {
+    margin-bottom: .5rem;
+}
+
+.field {
+    display: flex;
+    align-items: center;
+}
